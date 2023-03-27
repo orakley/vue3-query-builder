@@ -1,0 +1,36 @@
+.#{$prefix}{
+    &-rules{
+        .nested{
+            padding-left: 1rem;    
+        }
+    }
+    &-rule{
+        border: 1px solid lightgrey;
+        padding: 5px;
+        margin: 5px 0;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: .5rem;
+        justify-content: space-between;
+        .handle{
+            width: 10px;
+            height: 50px;
+            background-color: pink;
+            cursor: pointer;
+        }
+    }
+    &--add{
+        justify-content: space-between;
+        &-rule{
+            width: 65%;
+            gap: 0.5rem;
+            select{
+                width: 70%;
+            }
+        }
+        &-group{
+            width: 30%;
+        }
+    }
+}

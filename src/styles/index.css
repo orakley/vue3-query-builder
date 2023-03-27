@@ -1,0 +1,47 @@
+.query-builder-rules .nested {
+  padding-left: 1rem;
+}
+.query-builder-rule {
+  border: 1px solid lightgrey;
+  padding: 5px;
+  margin: 5px 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  justify-content: space-between;
+}
+.query-builder-rule .handle {
+  width: 10px;
+  height: 50px;
+  background-color: pink;
+  cursor: pointer;
+}
+.query-builder--add {
+  justify-content: space-between;
+}
+.query-builder--add-rule {
+  width: 65%;
+  gap: 0.5rem;
+}
+.query-builder--add-rule select {
+  width: 70%;
+}
+.query-builder--add-group {
+  width: 30%;
+}
+
+:root {
+  --border-color: #ccc;
+  --text-color: #333;
+}
+
+select, input,
+.input-field {
+  padding: 0.5em 0.75em;
+  border-radius: 0.2em;
+  border: 1px solid var(--border-color);
+  color: var(--text-color);
+  font-size: 1rem;
+  width: 100%;
+}/*# sourceMappingURL=index.css.map */

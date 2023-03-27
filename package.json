@@ -1,0 +1,37 @@
+{
+    "name": "vue3-query-builder",
+    "version": "0.0.0",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/orakley/vue3-query-builder.git"
+    },
+    "description": "A Query Builder written in Vue3",
+    "author": "Pauline Schlesier (https://github.com/orakley/)",
+    "keywords": [
+        "Vue3 Query Bilder",
+        "Drag & Drop",
+        "RuleBuilder"
+    ],
+    "private": true,
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build",
+        "preview": "vite preview"
+    },
+    "dependencies": {
+        "sass": "^1.49.9",
+        "sass-loader": "^8.0.2",
+        "vue": "^3.2.47",
+        "vue-multiselect": "^2.1.7"
+    },
+    "devDependencies": {
+        "@vitejs/plugin-vue": "^4.0.0",
+        "vite": "^4.1.4",
+        "vuedraggable": "^4.1.0"
+    },
+    "bugs": {
+        "url": "https://github.com/orakley/vue3-query-builder/issues"
+    },
+    "homepage": "https://github.com/orakley/vue3-query-builder#readme"
+}
