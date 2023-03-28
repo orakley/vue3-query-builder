@@ -92,4 +92,8 @@ header {
     display: block;
     margin: 0 auto 2rem;
 }
+main{
+    max-width: 960px;
+    margin: 0 auto;
+}
 </style>

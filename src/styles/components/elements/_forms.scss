@@ -1,14 +1,12 @@
-:root{
-    --border-color: #ccc;
-    --text-color: #333;
-}
-
 select, input,
-.input-field {
+.input-field, button, .btn {
     padding: 0.5em 0.75em;
     border-radius: 0.2em;
     border: 1px solid var(--border-color);
     color: var(--text-color);
     font-size: 1rem;
-    width: 100%;
+}
+
+button, .btn{
+    background: var(--background);
 }

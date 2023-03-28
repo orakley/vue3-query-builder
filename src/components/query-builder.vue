@@ -19,6 +19,10 @@
                         </option>
                 </select>
             </div>
+            <button v-if="currentQuery.items.length" type="button" class="btn btn-primary" 
+                    @click="createParams()">
+                    Gib mir Parameter
+            </button>
         </div>
         <!-- <queryItem  v-for="(item, index) in currentQuery.items" :key="index"></queryItem> -->
         <!-- <ul>
@@ -26,8 +30,9 @@
                 Item
             </li>
         </ul> -->
-        <button type="button" class="btn btn-primary" @click="createParams()">Gib mir Parameter</button>
-    {{ currentQuery.params }}
+        <pre v-if="currentQuery.items.length">
+            {{ currentQuery.params }}
+        </pre>
     </div>
 </template>
 <script setup>
@@ -50,6 +55,7 @@ const props = defineProps({
 
 const currentQuery = reactive ({
     selectedRule: null,
+    selectedGroupOperator: 'and',
     items: [],
     params: []
 })
@@ -72,7 +78,7 @@ function selectRule(_itemId){
     }
     currentQuery.selectedRule = null
     
-    addChildKey()
+    // addChildKey()
 }
 function addChildKey(){
     currentQuery.items.forEach(element => element.children = [])
@@ -85,9 +91,7 @@ function addGroup(){
         name: 'advanced',
         id: 'advanced',
         icon: '666',
-        children: [
-
-        ]
+        children: []
     }
     currentQuery.items.push(_group)
 }

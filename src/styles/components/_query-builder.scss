@@ -5,23 +5,67 @@
         }
     }
     &-rule{
-        border: 1px solid lightgrey;
-        padding: 5px;
-        margin: 5px 0;
         display: flex;
         flex-wrap: wrap;
-        align-items: center;
-        gap: .5rem;
-        justify-content: space-between;
-        .handle{
-            width: 10px;
-            height: 50px;
-            background-color: pink;
-            cursor: pointer;
+        gap: .2rem;
+        .rule-group-operator{
+            width: 80px;
+            display: flex;
+            align-items: center;
+            select{
+                width: 100%;
+            }
+        }
+        .rule{
+            padding: 0 5px;
+            margin: 5px 0;
+            display: flex;
+            // flex-wrap: wrap;
+            align-items: center;
+            gap: .2rem;
+            justify-content: flex-end;
+            &-handle{
+                width: 10px;
+                height: 50px;
+                background-image: url(../../src/assets/drag.svg);
+                cursor: pointer;
+                background-position: center center;
+                background-size: 16px;
+                background-repeat: no-repeat;
+            }
+            &-name{
+                border: 1px solid var(--border-color);
+                border-radius: 0.2rem;
+                display: flex;
+                padding: 0.5em 0.75em;
+                background-color: var(--background);
+                gap: 0.5rem;
+            }
+            &-actions{
+                margin-left: auto;
+                button{
+                    width: 32px;
+                    height: 32px;
+                    justify-content: center;
+                    align-items: center;
+                    display: flex;
+                    img{
+                        height: 16px;
+                    }   
+                }
+            }
+        }
+        &--advanced{
+            .rule{
+                background-color: var(--background);
+                border-radius: 0.2rem;
+                border: 1px solid var(--border-color)
+            }
         }
     }
     &--add{
         justify-content: space-between;
+        margin-left: 100px;
         &-rule{
             width: 65%;
             gap: 0.5rem;

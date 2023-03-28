@@ -1,24 +1,72 @@
+:root {
+  --border-color: #ccc;
+  --text-color: #333;
+  --background: #f5f5f5;
+  font-family: sans-serif;
+}
+
 .query-builder-rules .nested {
   padding-left: 1rem;
 }
 .query-builder-rule {
-  border: 1px solid lightgrey;
-  padding: 5px;
-  margin: 5px 0;
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
-  gap: 0.5rem;
-  justify-content: space-between;
+  gap: 0.2rem;
 }
-.query-builder-rule .handle {
+.query-builder-rule .rule-group-operator {
+  width: 80px;
+  display: flex;
+  align-items: center;
+}
+.query-builder-rule .rule-group-operator select {
+  width: 100%;
+}
+.query-builder-rule .rule {
+  padding: 0 5px;
+  margin: 5px 0;
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+  justify-content: flex-end;
+}
+.query-builder-rule .rule-handle {
   width: 10px;
   height: 50px;
-  background-color: pink;
+  background-image: url(../../src/assets/drag.svg);
   cursor: pointer;
+  background-position: center center;
+  background-size: 16px;
+  background-repeat: no-repeat;
+}
+.query-builder-rule .rule-name {
+  border: 1px solid var(--border-color);
+  border-radius: 0.2rem;
+  display: flex;
+  padding: 0.5em 0.75em;
+  background-color: var(--background);
+  gap: 0.5rem;
+}
+.query-builder-rule .rule-actions {
+  margin-left: auto;
+}
+.query-builder-rule .rule-actions button {
+  width: 32px;
+  height: 32px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+.query-builder-rule .rule-actions button img {
+  height: 16px;
+}
+.query-builder-rule--advanced .rule {
+  background-color: var(--background);
+  border-radius: 0.2rem;
+  border: 1px solid var(--border-color);
 }
 .query-builder--add {
   justify-content: space-between;
+  margin-left: 100px;
 }
 .query-builder--add-rule {
   width: 65%;
@@ -31,17 +79,15 @@
   width: 30%;
 }
 
-:root {
-  --border-color: #ccc;
-  --text-color: #333;
-}
-
 select, input,
-.input-field {
+.input-field, button, .btn {
   padding: 0.5em 0.75em;
   border-radius: 0.2em;
   border: 1px solid var(--border-color);
   color: var(--text-color);
   font-size: 1rem;
-  width: 100%;
+}
+
+button, .btn {
+  background: var(--background);
 }/*# sourceMappingURL=index.css.map */

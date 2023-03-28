@@ -3,6 +3,12 @@
 
 $prefix: "query-builder";
 
+:root{
+    --border-color: #ccc;
+    --text-color: #333;
+    --background: #f5f5f5;
+    font-family: sans-serif;
+}
 
 @import "./components/query-builder";
 @import "./components/query-builder-item";

@@ -6,7 +6,7 @@
         item-key="id"
         v-bind="dragOptions"
         :component-data="{name:'fade'}"
-        handle=".handle"
+        handle=".rule-handle"
         :move="onMove"
     >
         <template #item="{ element, index}">
@@ -50,8 +50,42 @@ const dragOptions = reactive({
     ghostClass: "ghost",
     dataIdAttr: 'data-id', 
 })
-function onMove(){
-    console.log('bewegung')
+function onMove(event){
+    console.log(event, 'bewegung', event.draggedContext.element?.children)
+
+                           
+    // if(event.draggedContext.element?.children?.length >= 1){
+    //     return false
+    // } else {
+    //     return false
+    // }
+
+    // console.log(_isAdvanced)
+
+            var _parentClasses = event.to.className.split(' ')
+            var _findString = _parentClasses.map(str => /level/.test(str))
+            var _parentLevelIndex = _findString.findIndex(i => i === true) 
+            if(_parentLevelIndex !== -1){
+                var _parentLevel = Number(_parentClasses[_parentLevelIndex].split('').reverse().join('').substring(0,1))
+            } else {
+                var _parentLevel = -1
+            }
+
+            console.log(_parentClasses, _parentLevel)
+
+            // var _futureLevel = _parentLevel+1            
+            // var _oldLevel = event.draggedContext.element.level
+            // var _maxDepth = undefined
+
+            // if(currentStoredAccordion.keepHierarchy == true){
+            //     if((_futureLevel !== _oldLevel)){
+            //         return false
+            //     }
+            // } else if(_maxDepth !== undefined){
+            //     if((_futureLevel > _maxDepth) || (_hasChildren && _futureLevel >= _hasChildren)){
+            //         return false
+            //     }
+            // }
 }
 
 // const emit = defineEmits('deleteRule')
