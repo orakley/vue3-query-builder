@@ -1,24 +1,26 @@
 <template>
     <draggable
-        class="query-builder-rules"
+        class="qb-draggable qb-rules-container"
         :list="items"
         :group="{ name: 'g1' }"
         item-key="id"
         v-bind="dragOptions"
         :component-data="{name:'fade'}"
-        handle=".rule-handle"
+        handle=".qb-rule-handle"
         :move="onMove"
     >
         <template #item="{ element, index}">
-            <div  :data-id="element.id">
+            <div class="qb-item" :class="_isAdvanced(element)" :data-id="element.id">
                 <queryItem  :rule="element" :index="index" :calculatedLevel="calculatedLevel"
                             :config="config" @deleteRule="$emit('deleteRule', $event)">
                 </queryItem>
-
-                <nestedQuery    :class="'nested level-' + calculatedLevel" :config="config"
-                                :calculatedLevel="newCalculatedLevel" 
-                                :items="element.children">
+                <nestedQuery   v-if="element.id === 'advanced'" :class="'nested level-' + calculatedLevel + ' ' + element.id" :config="config"
+                    :calculatedLevel="newCalculatedLevel" 
+                    :items="element.children">
                 </nestedQuery>
+                <button v-if="element.id == 'advanced'" >
+                    Add new Rule
+                </button>
             </div>
         </template>
     </draggable>
@@ -41,6 +43,12 @@ const props = defineProps({
     }
 })
 
+// const emit = defineEmit({
+
+// })
+
+const _isAdvanced = (element) => {if(element.id === 'advanced'){return 'qb-item__' + element.id}}
+
 const newCalculatedLevel = computed(() => props.calculatedLevel+1)
 
 const dragOptions = reactive({
@@ -51,7 +59,11 @@ const dragOptions = reactive({
     dataIdAttr: 'data-id', 
 })
 function onMove(event){
-    console.log(event, 'bewegung', event.draggedContext.element?.children)
+    console.log(event, event.to)
+
+    // return true only on item who is advanced oder 
+
+
 
                            
     // if(event.draggedContext.element?.children?.length >= 1){
@@ -62,16 +74,17 @@ function onMove(event){
 
     // console.log(_isAdvanced)
 
-            var _parentClasses = event.to.className.split(' ')
-            var _findString = _parentClasses.map(str => /level/.test(str))
-            var _parentLevelIndex = _findString.findIndex(i => i === true) 
-            if(_parentLevelIndex !== -1){
-                var _parentLevel = Number(_parentClasses[_parentLevelIndex].split('').reverse().join('').substring(0,1))
+            var _classes = event.to.className.split(' ').map(str => /qb-rules-container/.test(str)).findIndex(i => i === true)
+            let _hasAdvanced = event.to.className.split(' ').map(str => /advanced/.test(str)).findIndex(i => i === true) 
+            
+            console.log(_hasAdvanced, _classes)
+            if(_hasAdvanced > 0 || _classes > 0){
+                return true
             } else {
-                var _parentLevel = -1
+                return false
             }
 
-            console.log(_parentClasses, _parentLevel)
+            // console.log(_parentClasses, _parentLevel)
 
             // var _futureLevel = _parentLevel+1            
             // var _oldLevel = event.draggedContext.element.level

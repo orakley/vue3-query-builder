@@ -7,6 +7,11 @@ select, input,
     font-size: 1rem;
 }
 
+select{
+    cursor: pointer;
+}
+
 button, .btn{
     background: var(--background);
+    cursor: pointer;
 }

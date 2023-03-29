@@ -1,10 +1,10 @@
 <template>
-    <div class="query-builder">
+    <div class="qb-container">
                 
         <nestedQuery :items="currentQuery.items" :calculatedLevel="0" :config="config" @deleteRule="(event) => deleteRule(event)"></nestedQuery>
 
-        <div class="query-builder-rule query-builder--add">
-            <div class="query-builder--add-rule">
+        <div class="qb-actions">
+            <div class="qb-actions__add-rule">
                 <!-- <queryAdd :config="config"></queryAdd> -->
                 
                 <select v-model="currentQuery.selectedRule" @change="selectRule(currentQuery.selectedRule)"
@@ -19,7 +19,7 @@
                         </option>
                 </select>
             </div>
-            <button v-if="currentQuery.items.length" type="button" class="btn btn-primary" 
+            <button v-if="currentQuery.items.length" type="button" class="btn btn-primary qb-actions__search" 
                     @click="createParams()">
                     Gib mir Parameter
             </button>
@@ -77,11 +77,6 @@ function selectRule(_itemId){
         addGroup()
     }
     currentQuery.selectedRule = null
-    
-    // addChildKey()
-}
-function addChildKey(){
-    currentQuery.items.forEach(element => element.children = [])
 }
 function findRule(_itemId){
     return props.config.rules.find(rule => rule.id === _itemId)

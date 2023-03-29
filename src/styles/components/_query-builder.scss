@@ -1,80 +1,113 @@
-.#{$prefix}{
-    &-rules{
-        .nested{
-            padding-left: 1rem;    
+.#{$prefix}{ // query builder
+    &-item{
+        &__advanced{
+            background-color: var(--background);
+            border-radius: 0.2rem;
+            border: 1px solid var(--border-color);
+            margin-left: 100px;
+            padding-left: 5px;
+            padding-bottom: 5px;
+            margin-top: 5px;
+            margin-bottom: 5px;
+            & ~ .qb-item__advanced{
+                margin-top: 10px;
+            }
+            // & > .qb-item:not(.qb-item__advanced){
+            //     margin-top: 10px;
+            // }
+            
+            .qb-rule{
+                &--advanced{
+                    margin-left: 85px;
+                    .qb-rule-handle{
+                        visibility: hidden;
+                        pointer-events: none;
+                    }
+                    & > .qb-rule-operator{
+                        position: absolute;
+                        left: -190px;
+                        top: 0;
+                    } 
+                }
+                
+                
+            }
         }
     }
     &-rule{
         display: flex;
         flex-wrap: wrap;
         gap: .2rem;
-        .rule-group-operator{
+        position: relative;
+        &-operator{
             width: 80px;
             display: flex;
             align-items: center;
+            // position: absolute;
+            left: -90px;
+            top: 10px;
             select{
                 width: 100%;
             }
         }
-        .rule{
+        &-container{
             padding: 0 5px;
-            margin: 5px 0;
+            // margin: 5px 0;
             display: flex;
             // flex-wrap: wrap;
             align-items: center;
-            gap: .2rem;
+            gap: .5rem;
             justify-content: flex-end;
-            &-handle{
-                width: 10px;
-                height: 50px;
-                background-image: url(../../src/assets/drag.svg);
-                cursor: pointer;
-                background-position: center center;
-                background-size: 16px;
-                background-repeat: no-repeat;
-            }
-            &-name{
-                border: 1px solid var(--border-color);
-                border-radius: 0.2rem;
-                display: flex;
-                padding: 0.5em 0.75em;
-                background-color: var(--background);
-                gap: 0.5rem;
-            }
-            &-actions{
-                margin-left: auto;
-                button{
-                    width: 32px;
-                    height: 32px;
-                    justify-content: center;
-                    align-items: center;
-                    display: flex;
-                    img{
-                        height: 16px;
-                    }   
-                }
-            }
         }
-        &--advanced{
-            .rule{
-                background-color: var(--background);
-                border-radius: 0.2rem;
-                border: 1px solid var(--border-color)
+        &-handle{
+            width: 10px;
+            height: 50px;
+            background-image: url(../../src/assets/drag.svg);
+            cursor: pointer;
+            background-position: center center;
+            background-size: 16px;
+            background-repeat: no-repeat;
+        }
+        &-name{
+            border: 1px solid var(--border-color);
+            border-radius: 0.2rem;
+            display: flex;
+            padding: 0.5em 0.75em;
+            background-color: var(--background);
+            gap: 0.5rem;
+        }
+        &-actions{
+            margin-left: auto;
+            button{
+                width: 32px;
+                height: 32px;
+                justify-content: center;
+                align-items: center;
+                display: flex;
+                img{
+                    height: 16px;
+                }   
             }
         }
     }
-    &--add{
-        justify-content: space-between;
+    &-actions{
         margin-left: 100px;
-        &-rule{
-            width: 65%;
-            gap: 0.5rem;
-            select{
-                width: 70%;
+        display: flex;
+        gap: .2rem;
+        margin-top: 1rem;
+        justify-content: space-between;
+        &__add-rule{
+            justify-content: space-between;
+            &-rule{
+                width: 65%;
+                gap: 0.5rem;
+                select{
+                    width: 70%;
+                }
             }
-        }
-        &-group{
-            width: 30%;
+            &-group{
+                width: 30%;
+            }
         }
     }
 }
