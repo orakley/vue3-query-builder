@@ -11,22 +11,37 @@
     >
         <template #item="{ element, index}">
             <div class="qb-item" :class="_isAdvanced(element)" :data-id="element.id">
+
                 <queryItem  :rule="element" :index="index" :calculatedLevel="calculatedLevel"
-                            :config="config" @deleteRule="$emit('deleteRule', $event)">
+                            :currentQuery="currentQuery"
+                            :config="config" 
+                            @deleteRule="$emit('deleteRule', $event)"
+                            @updateRule="$emit('updateRule', $event)"
+                            @levelOperatorValue="$emit('levelOperatorValue', $event)">
                 </queryItem>
-                <nestedQuery   v-if="element.id === 'advanced'" :class="'nested level-' + calculatedLevel + ' ' + element.id" :config="config"
-                    :calculatedLevel="newCalculatedLevel" 
-                    :items="element.children">
+                
+                <nestedQuery    v-if="element.id === 'advanced'" 
+                                :class="'nested level-' + calculatedLevel + ' ' + element.id" 
+                                :config="config"
+                                :calculatedLevel="newCalculatedLevel" 
+                                @deleteRule="$emit('deleteRule', $event)"
+                                @updateRule="$emit('updateRule', $event)"
+                                @levelOperatorValue="$emit('levelOperatorValue', $event)"
+                                :items="element.children">
                 </nestedQuery>
-                <button v-if="element.id == 'advanced'" >
-                    Add new Rule
-                </button>
+
+                <queryAdd   v-if="element.id == 'advanced'" 
+                            :index="index"
+                            :calculatedLevel="calculatedLevel"
+                            :config="config" @selectRule="$emit('selectRule', $event)"/>
+
             </div>
         </template>
     </draggable>
 </template>
 <script setup>
 import draggable from "vuedraggable";
+import queryAdd from "./query-add.vue"
 import queryItem from "./query-item.vue"
 import nestedQuery from "./query-nested.vue"
 import { computed, reactive, onMounted, onBeforeMount , ref, watch, watchEffect, toRef, toRefs } from 'vue';
@@ -40,6 +55,9 @@ const props = defineProps({
     },
     config:{
         type: Object,
+    },
+    currentQuery: {
+        type: Object
     }
 })
 
@@ -59,52 +77,16 @@ const dragOptions = reactive({
     dataIdAttr: 'data-id', 
 })
 function onMove(event){
-    console.log(event, event.to)
 
-    // return true only on item who is advanced oder 
-
-
-
-                           
-    // if(event.draggedContext.element?.children?.length >= 1){
-    //     return false
-    // } else {
-    //     return false
-    // }
-
-    // console.log(_isAdvanced)
-
-            var _classes = event.to.className.split(' ').map(str => /qb-rules-container/.test(str)).findIndex(i => i === true)
-            let _hasAdvanced = event.to.className.split(' ').map(str => /advanced/.test(str)).findIndex(i => i === true) 
-            
-            console.log(_hasAdvanced, _classes)
-            if(_hasAdvanced > 0 || _classes > 0){
-                return true
-            } else {
-                return false
-            }
-
-            // console.log(_parentClasses, _parentLevel)
-
-            // var _futureLevel = _parentLevel+1            
-            // var _oldLevel = event.draggedContext.element.level
-            // var _maxDepth = undefined
-
-            // if(currentStoredAccordion.keepHierarchy == true){
-            //     if((_futureLevel !== _oldLevel)){
-            //         return false
-            //     }
-            // } else if(_maxDepth !== undefined){
-            //     if((_futureLevel > _maxDepth) || (_hasChildren && _futureLevel >= _hasChildren)){
-            //         return false
-            //     }
-            // }
+    var _classes = event.to.className.split(' ').map(str => /qb-rules-container/.test(str)).findIndex(i => i === true)
+    let _hasAdvanced = event.to.className.split(' ').map(str => /advanced/.test(str)).findIndex(i => i === true) 
+    
+    if(_hasAdvanced > 0 || _classes > 0){
+        return true
+    } else {
+        return false
+    }
 }
 
-// const emit = defineEmits('deleteRule')
-
-// const deleteRule = (event) => {
-//     emit('onDeleteRule', event)
-// }
 
 </script>

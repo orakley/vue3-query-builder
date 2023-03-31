@@ -1,7 +1,7 @@
 .#{$prefix}{ // query builder
     &-item{
         &__advanced{
-            background-color: var(--background);
+            background-color: var(--background-rgba);
             border-radius: 0.2rem;
             border: 1px solid var(--border-color);
             margin-left: 100px;
@@ -43,9 +43,10 @@
             width: 80px;
             display: flex;
             align-items: center;
+            justify-content: flex-end;
             // position: absolute;
-            left: -90px;
-            top: 10px;
+            // left: -90px;
+            // top: 10px;
             select{
                 width: 100%;
             }
@@ -75,6 +76,7 @@
             padding: 0.5em 0.75em;
             background-color: var(--background);
             gap: 0.5rem;
+            font-size: var(--font-size);
         }
         &-actions{
             margin-left: auto;

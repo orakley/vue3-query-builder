@@ -10,18 +10,21 @@
 </template>
 
 <script setup>
+import colorInput from "./components/rules/color.vue"
+import textInput from "./components/rules/text.vue"
+import numberInput from "./components/rules/number.vue"
 import { computed, reactive, onMounted, onBeforeMount , ref, watch, watchEffect, toRef, toRefs } from 'vue';
 import queryBuilder from './components/query-builder.vue'
 
     const config = {
-        groupOperators: [
+        levelOperators: [
             {
                 name: 'and',
-                id: 'and'
+                id: 'AND'
             },
             {
                 name: 'or',
-                id: 'or'
+                id: 'OR'
             },
         ],
         ruleOperators: [
@@ -64,21 +67,39 @@ import queryBuilder from './components/query-builder.vue'
                 name: 'Name',
                 id: 'name',
                 type: String,
-                icon: '#'
+                icon: '#',
+                // component: textInput,
+                initialValue: "",
             },
             {
                 name: 'Hausnummer',
                 id: 'housenumber',
                 type: Number,
-                icon: '©'
+                icon: '©',
+                // component: numberInput,
+                initialValue: ""
             },
             {
                 name: 'Farbe',
                 id: 'color',
                 type: String,
-                icon: '⁂'
+                icon: '⁂',
+                // component: colorInput,
+                initialValue: ""
+            },
+            {
+                name: "Text Selection",
+                id: "txt",
+                // component: textInput,
+                initialValue: ""
             },
         ]
+            //         {
+            //             identifier: 'publish_start_to',
+            //             name: 'Veröffentlichungsdatum bis',
+            //             component: publishstartto,
+            //             initialValue: () => new Date().toLocaleDateString('en-CA'),
+            //         },
     }
 
 </script>

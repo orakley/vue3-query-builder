@@ -4,7 +4,9 @@ select, input,
     border-radius: 0.2em;
     border: 1px solid var(--border-color);
     color: var(--text-color);
-    font-size: 1rem;
+    font-size: var(--font-size);
+    font-weight: 100;
+
 }
 
 select{
@@ -14,4 +16,5 @@ select{
 button, .btn{
     background: var(--background);
     cursor: pointer;
+    font-size: var(--font-size);
 }
