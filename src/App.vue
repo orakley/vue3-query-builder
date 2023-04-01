@@ -70,14 +70,16 @@ import queryBuilder from './components/query-builder.vue'
                 icon: '#',
                 // component: textInput,
                 initialValue: "",
+                placeholder: "TEXTINPUT",
             },
             {
                 name: 'Hausnummer',
                 id: 'housenumber',
-                type: Number,
+                type: 'Number',
                 icon: '©',
                 // component: numberInput,
-                initialValue: ""
+                initialValue: "",
+                placeholder: 'Hausnummer'
             },
             {
                 name: 'Farbe',
@@ -85,13 +87,15 @@ import queryBuilder from './components/query-builder.vue'
                 type: String,
                 icon: '⁂',
                 // component: colorInput,
-                initialValue: ""
+                initialValue: "#333",
+                placeholder: 'Farbe'
             },
             {
                 name: "Text Selection",
                 id: "txt",
                 // component: textInput,
-                initialValue: ""
+                initialValue: "",
+                placeholder: "Placeholder"
             },
         ]
             //         {

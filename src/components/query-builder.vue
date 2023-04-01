@@ -160,8 +160,8 @@ function setLevelOperator(event){
 }
 
 function updateRule(event){
-    // let _find = filterRule(event.currentRule.id, event.currentRule.level, event.currentRule.index)
-    // console.log('found:', _find)
+    let _find = filterRule(event.currentRule.id, event.currentRule.level, event.currentRule.index)
+    console.log('found:', _find)
 
     currentQuery.rules[event.currentRule.index].value = event.currentRule.value
     currentQuery.rules[event.currentRule.index].operator = event.currentRule.operator

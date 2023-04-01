@@ -35,6 +35,7 @@
             <div class="qb-rule-input">
                 <!-- Component: <{{rule.component}} /> <br> -->
                 <input  class="input-field" v-model="currentRule.value" :type="rule.type" 
+                        :placeholder="rule.placeholder"
                         @input="$emit('updateRule', {currentRule}); ruleUpdate()">
             </div>        
             <div class="qb-rule-actions">
@@ -67,6 +68,9 @@ const props = defineProps({
         type: Object
     }
 
+})
+onMounted(() =>{
+    currentRule.value = props.rule.initialValue || ''
 })
 
 const currentRule = reactive({
