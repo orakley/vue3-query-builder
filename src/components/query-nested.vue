@@ -10,31 +10,35 @@
         :move="onMove"
     >
         <template #item="{ element, index}">
-            <div class="qb-item" :class="_isAdvanced(element)" :data-id="element.id">
-
-                <queryItem  :rule="element" :index="index" :calculatedLevel="calculatedLevel"
+            <div class="qb-item" :class="_isGroup(element)" :data-id="element.identificator">
+                <queryItem  :rule="element" :index="index" 
+                            :calculatedLevel="calculatedLevel"
                             :currentQuery="currentQuery"
                             :config="config" 
+                            :parentuuid="parentuuid"
                             @deleteRule="$emit('deleteRule', $event)"
                             @updateRule="$emit('updateRule', $event)"
                             @levelOperatorValue="$emit('levelOperatorValue', $event)">
                 </queryItem>
                 
-                <nestedQuery    v-if="element.id === 'advanced'" 
-                                :class="'nested level-' + calculatedLevel + ' ' + element.id" 
+                <nestedQuery    v-if="element.isGroup" 
+                                :class="'nested group level-' + calculatedLevel + ' ' + element.identificator" 
                                 :config="config"
+                                :parentuuid="element.uuid"
                                 :calculatedLevel="newCalculatedLevel" 
                                 @deleteRule="$emit('deleteRule', $event)"
                                 @updateRule="$emit('updateRule', $event)"
+                                @addRule="$emit('addRule', $event)"
                                 @levelOperatorValue="$emit('levelOperatorValue', $event)"
                                 :items="element.children">
                 </nestedQuery>
 
-                <queryAdd   v-if="element.id == 'advanced'" 
+                <queryAdd   v-if="element.children" 
                             :index="index"
-                            :calculatedLevel="calculatedLevel"
-                            :config="config" @selectRule="$emit('selectRule', $event)"/>
-
+                            :calculatedLevel="newCalculatedLevel"
+                            :config="config" 
+                            :parentuuid="element.uuid"
+                            @addRule="$emit('addRule', $event)"/>
             </div>
         </template>
     </draggable>
@@ -58,14 +62,15 @@ const props = defineProps({
     },
     currentQuery: {
         type: Object
+    },
+    parentuuid: {
+        type: String
     }
 })
 
-// const emit = defineEmit({
 
-// })
 
-const _isAdvanced = (element) => {if(element.id === 'advanced'){return 'qb-item__' + element.id}}
+const _isGroup = (element) => {if(element.isGroup){return 'qb-item__group ' + element.identificator}}
 
 const newCalculatedLevel = computed(() => props.calculatedLevel+1)
 
@@ -79,9 +84,9 @@ const dragOptions = reactive({
 function onMove(event){
 
     var _classes = event.to.className.split(' ').map(str => /qb-rules-container/.test(str)).findIndex(i => i === true)
-    let _hasAdvanced = event.to.className.split(' ').map(str => /advanced/.test(str)).findIndex(i => i === true) 
+    let _isGroup = event.to.className.split(' ').map(str => /group/.test(str)).findIndex(i => i === true) 
     
-    if(_hasAdvanced > 0 || _classes > 0){
+    if(_isGroup > 0 || _classes > 0){
         return true
     } else {
         return false

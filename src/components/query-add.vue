@@ -1,16 +1,18 @@
 <template>
     <div class="qb-actions__add-rule">        
-        <select v-model="selectedRule" @change="$emit('selectRule', {selectedRule, calculatedLevel, index}); resetValue()"
+        <select v-model="selectedRule" @change="$emit('addRule', {selectedRule, calculatedLevel, index, parentuuid}); resetValue()"
                 class="select form-control">
                 <option value="null" selected="selected" disabled>
                     &nbsp;Add Rule</option>
-                <option v-for="(option, index) in config.rules" :key="index" :value="option.id">
+                <option v-for="(option, index) in config.rules" :key="index" :value="option.identificator">
                     <i>{{ option.icon }}</i> &nbsp;{{ option.name }}    
                 </option>
-                <option :value="666">
-                    <i>⁕</i> add Advanced
+                <option v-if="calculatedLevel < 2"
+                        :value="'group'">
+                    <i>+</i> add group
                 </option>
         </select>
+        {{ calculatedLevel }}
     </div>
 
 </template>
@@ -25,6 +27,9 @@ const props = defineProps({
     },
     index: {
         type: Number,
+    },
+    parentuuid: {
+        type: String
     }
 })
 

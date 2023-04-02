@@ -7,7 +7,7 @@
   font-family: sans-serif;
 }
 
-.qb-item__advanced {
+.qb-item__group {
   background-color: var(--background-rgba);
   border-radius: 0.2rem;
   border: 1px solid var(--border-color);
@@ -17,17 +17,17 @@
   margin-top: 5px;
   margin-bottom: 5px;
 }
-.qb-item__advanced ~ .qb-item__advanced {
+.qb-item__group ~ .qb-item__group {
   margin-top: 10px;
 }
-.qb-item__advanced .qb-rule--advanced {
+.qb-item__group .qb-rule--group {
   margin-left: 85px;
 }
-.qb-item__advanced .qb-rule--advanced .qb-rule-handle {
+.qb-item__group .qb-rule--group .qb-rule-handle {
   visibility: hidden;
   pointer-events: none;
 }
-.qb-item__advanced .qb-rule--advanced > .qb-rule-operator {
+.qb-item__group .qb-rule--group > .qb-rule-operator {
   position: absolute;
   left: -190px;
   top: 0;

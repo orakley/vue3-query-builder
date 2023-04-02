@@ -1,6 +1,6 @@
 .#{$prefix}{ // query builder
     &-item{
-        &__advanced{
+        &__group{
             background-color: var(--background-rgba);
             border-radius: 0.2rem;
             border: 1px solid var(--border-color);
@@ -9,15 +9,15 @@
             padding-bottom: 5px;
             margin-top: 5px;
             margin-bottom: 5px;
-            & ~ .qb-item__advanced{
+            & ~ .qb-item__group{
                 margin-top: 10px;
             }
-            // & > .qb-item:not(.qb-item__advanced){
+            // & > .qb-item:not(.qb-item__group){
             //     margin-top: 10px;
             // }
             
             .qb-rule{
-                &--advanced{
+                &--group{
                     margin-left: 85px;
                     .qb-rule-handle{
                         visibility: hidden;

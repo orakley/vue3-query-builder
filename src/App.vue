@@ -20,52 +20,52 @@ import queryBuilder from './components/query-builder.vue'
         levelOperators: [
             {
                 name: 'and',
-                id: 'AND'
+                identificator: 'AND'
             },
             {
                 name: 'or',
-                id: 'OR'
+                identificator: 'OR'
             },
         ],
         ruleOperators: [
             {
                 name: 'enthällt',
-                id: 'contain'
+                identificator: 'contain'
             },
             {
                 name: 'enthällt nicht',
-                id: 'notContain'
+                identificator: 'notContain'
             },
             {
                 name: 'ist',
-                id: 'is'
+                identificator: 'is'
             },
             {
                 name: 'ist nicht',
-                id: 'isNot'
+                identificator: 'isNot'
             },
             {
                 name: 'startet mit',
-                id: 'startsWith'
+                identificator: 'startsWith'
             },
             {
                 name: 'endet mit',
-                id: 'endsWith'
+                identificator: 'endsWith'
             },
             {
                 name: 'hat keine Daten',
-                id: 'isEmpty'
+                identificator: 'isEmpty'
             },
             {
                 name: 'hat Daten',
-                id: 'isNotEmpty'
+                identificator: 'isNotEmpty'
             },
         ],
 
         rules: [
             {
                 name: 'Name',
-                id: 'name',
+                identificator: 'name',
                 type: String,
                 icon: '#',
                 // component: textInput,
@@ -74,7 +74,7 @@ import queryBuilder from './components/query-builder.vue'
             },
             {
                 name: 'Hausnummer',
-                id: 'housenumber',
+                identificator: 'housenumber',
                 type: 'Number',
                 icon: '©',
                 // component: numberInput,
@@ -83,7 +83,7 @@ import queryBuilder from './components/query-builder.vue'
             },
             {
                 name: 'Farbe',
-                id: 'color',
+                identificator: 'color',
                 type: String,
                 icon: '⁂',
                 // component: colorInput,
@@ -92,7 +92,7 @@ import queryBuilder from './components/query-builder.vue'
             },
             {
                 name: "Text Selection",
-                id: "txt",
+                identificator: "txt",
                 // component: textInput,
                 initialValue: "",
                 placeholder: "Placeholder"
@@ -105,7 +105,6 @@ import queryBuilder from './components/query-builder.vue'
             //             initialValue: () => new Date().toLocaleDateString('en-CA'),
             //         },
     }
-    // develop
 
 </script>
 

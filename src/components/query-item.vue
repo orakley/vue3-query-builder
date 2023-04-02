@@ -1,16 +1,17 @@
 <template>
-    <div class="qb-rule" :class="'qb-rule--' + rule.id + ' level-' + calculatedLevel">
+    <div class="qb-rule" :class="'qb-rule--' + rule.identificator + ' level-' + calculatedLevel">
         <div class="qb-rule-operator">
-            <select v-if="index === 1 || calculatedLevel > 0"
+            {{ index }} {{ calculatedLevel }}
+            <select v-if="(index === 1 && calculatedLevel == 0) || (index === 0 && calculatedLevel > 0)"
                     v-model="currentRule.levelOperator" @change="$emit('levelOperatorValue', {currentRule, index, calculatedLevel})" 
                     class="form-control">
                 <option v-for="operator in config.levelOperators"
-                        :selected="operator.id == 'AND' ? 'selected' : ''"
-                        :value="operator.id" :key="operator.id">
+                        :selected="operator.identificator == 'AND' ? 'selected' : ''"
+                        :value="operator.identificator" :key="operator.identificator">
                     {{ operator.name }}    
                 </option>
             </select>
-            <small v-if="index > 1">{{ currentQuery.levelOperator?.name }}</small>
+            <small v-if="index > 1">{{ currentQuery?.levelOperator?.name }}</small>
         </div>
         <div class="qb-rule-container">
             <div class="qb-rule-handle">        
@@ -27,7 +28,7 @@
                 <select v-model="currentRule.operator" class="form-control" 
                         @change="$emit('updateRule', {currentRule}); ruleUpdate()">
 
-                    <option v-for="operator in config.ruleOperators" :value="operator.id" :key="operator.id">
+                    <option v-for="operator in config.ruleOperators" :value="operator.identificator" :key="operator.identificator">
                         {{ operator.name}}
                     </option>
                 </select>
@@ -39,11 +40,11 @@
                         @input="$emit('updateRule', {currentRule}); ruleUpdate()">
             </div>        
             <div class="qb-rule-actions">
-                <button type="button" @click="$emit('deleteRule', {rule, index, calculatedLevel})"
+                <button type="button" @click="$emit('deleteRule', {rule, index, calculatedLevel, parentuuid})"
                         class="btn btn-secondary btn-icon">
                         <img src="../assets/delete.svg">
                 </button>
-                <!-- Add to Advanced Filter -->
+                <!-- Add to Group Filter -->
             </div>
         </div>
     </div>
@@ -66,16 +67,30 @@ const props = defineProps({
     },
     currentQuery: {
         type: Object
+    },
+    parentIndex: {
+        type: Number
+    },
+    parentuuid: {
+        type: String
     }
 
 })
+// const emit = defineEmits(['updateRule'])
 onMounted(() =>{
     currentRule.value = props.rule.initialValue || ''
+    if(props.parentuuid){
+        currentRule.parentuuid = props.parentuuid
+    }
+    if(props.rule.isGroup){
+        currentRule.index = props.index
+    }
+    // emit('updateRule', {currentRule})
 })
 
 const currentRule = reactive({
     levelOperator: 'AND',
-    id: props.rule.id,
+    uuid: props.rule.uuid,
     value: '',
     operator: 'contain',
     level: props.calculatedLevel,
