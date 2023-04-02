@@ -100,15 +100,12 @@
 
     function findRule(obj, _uuid){
         for(const i in obj){
-            // console.log(obj[i])
             if(obj[i].uuid == _uuid) return obj[i]
             if(obj[i].children){
                 const nestedObj = findRule(obj[i].children, _uuid)
-                // console.log('children', obj[i].children)
                 if (nestedObj) return nestedObj;
             }
         }
-
     }
 
     function selectRule(_id, _event){
@@ -128,8 +125,6 @@
     }
         
     function addRule(event){
-        // console.log('AddRule', event)
-        
         let _addOn = {
             index: !event.calculatedLevel ? currentQuery.rules.length : 0,
             value: '',
