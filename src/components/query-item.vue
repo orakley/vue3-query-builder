@@ -1,8 +1,7 @@
 <template>
     <div class="qb-rule" :class="'qb-rule--' + rule.identificator + ' level-' + calculatedLevel">
         <div class="qb-rule-operator">
-            {{ index }} {{ calculatedLevel }}
-            <select v-if="(index === 1 && calculatedLevel == 0) || (index === 0 && calculatedLevel > 0)"
+            <select v-if="showOperator"
                     v-model="currentRule.levelOperator" @change="$emit('levelOperatorValue', {currentRule, index, calculatedLevel})" 
                     class="form-control">
                 <option v-for="operator in config.levelOperators"
@@ -76,7 +75,18 @@ const props = defineProps({
     }
 
 })
-// const emit = defineEmits(['updateRule'])
+const showOperator = computed(() => {
+    const   _isFirstofGroup = props.index === 0 && props.rule.isGroup == true,
+            _isSecondofGroup = props.index === 0 && props.rule.level > 0,
+            _isFirst = props.index === 0 && props.rule.level == 0,
+            _isSecond = props.index === 1 && props.rule.level == 0;
+    if(_isFirstofGroup || _isFirst){
+        return false
+    }
+    if(_isSecondofGroup || _isSecond ){
+        return true
+    }
+})
 onMounted(() =>{
     currentRule.value = props.rule.initialValue || ''
     if(props.parentuuid){

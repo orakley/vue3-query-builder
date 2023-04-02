@@ -80,11 +80,23 @@
         }
     })
     const currentQuery = reactive ({
-        levelOperators: {
+        levelOperators: [
+        {
             name: "and",
-            id: "AND", 
-            children: []
+            identificator: "AND", 
+            level: 0
         },
+        {
+            name: "and",
+            identificator: "AND", 
+            level: 1
+        },
+        {
+            name: "and",
+            identificator: "AND", 
+            level: 2
+        },
+        ],
         operator: '',
         level: 0,
         rules: [],
@@ -155,7 +167,14 @@
     }
 
     function setLevelOperator(event){
-        currentQuery.levelOperator = props.config.levelOperators.find(operator => operator.id == event.currentRule.levelOperator)
+        let _level = {
+            level: event.calculatedLevel,
+        }
+        let _findOperator = {...props.config.levelOperators.find(operator => operator.identificator == event.currentRule.levelOperator), ..._level}
+
+        let _findCurrentOperator = currentQuery.levelOperators.find(operator => operator.level === event.calculatedLevel)
+        _findCurrentOperator.identificator = _findOperator.identificator     //  = _findOperator
+        _findCurrentOperator.name = _findOperator.name     //  = _findOperator
     }
 
     function updateRule(event){
