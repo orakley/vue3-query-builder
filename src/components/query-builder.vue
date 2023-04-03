@@ -4,7 +4,7 @@
         <nestedQuery    :items="currentQuery.rules" 
                         :calculatedLevel="calculatedLevel" 
                         :config="config" 
-                        :currentQuery="currentQuery"
+                        :levelOperators="currentQuery.levelOperators"
                         @deleteRule="(event) => deleteRule(event)"
                         @updateRule="(event) => updateRule(event)"
                         @levelOperatorValue="(event) => setLevelOperator(event)"
@@ -150,7 +150,6 @@
         if(event.rule.isGroup){
             deleteLevelOperator(event.rule.level + 1)
         }
-        console.log(event.rule.isGroup)
     }
 
     function createParams(){
@@ -158,7 +157,6 @@
     }
 
     function addLevelOperator(level){
-        console.log(level)
         let _level = {
             level: level,
         }
@@ -166,11 +164,13 @@
         // if()
         currentQuery.levelOperators.push(_findOperator)
     }
+    
     function deleteLevelOperator(level){
        currentQuery.levelOperators.splice(currentQuery.levelOperators.findIndex(operator => operator.level === level), 1)
     }
 
     function setLevelOperator(event){
+        console.log(event)
         let _findOperator = props.config.levelOperators.find(operator => operator.identificator == event.currentRule.levelOperator)
 
         let _findCurrentOperator = currentQuery.levelOperators.find(operator => operator.level === event.calculatedLevel)
@@ -179,11 +179,14 @@
     }
 
     function updateRule(event){
+
         let _find = findRule(currentQuery.rules, event.currentRule.uuid)
 
+        console.log(event.currentRule, _find)
         _find.value = event.currentRule.value
         _find.operator = event.currentRule.operator
         _find.index = event.currentRule.index
+        _find.level = event.currentRule.level
     }
 
     // q[operatorIdentifier]:AND

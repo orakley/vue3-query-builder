@@ -20,17 +20,17 @@
 .qb-item__group ~ .qb-item__group {
   margin-top: 10px;
 }
-.qb-item__group .qb-rule--group {
+.qb-item__group > .qb-rule {
   margin-left: 85px;
 }
-.qb-item__group .qb-rule--group .qb-rule-handle {
-  visibility: hidden;
-  pointer-events: none;
-}
-.qb-item__group .qb-rule--group > .qb-rule-operator {
+.qb-item__group > .qb-rule .qb-rule-operator {
   position: absolute;
   left: -190px;
   top: 0;
+}
+.qb-item__group > .qb-rule .qb-rule-handle {
+  visibility: hidden;
+  pointer-events: none;
 }
 .qb-rule {
   display: flex;

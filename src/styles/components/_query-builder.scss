@@ -12,25 +12,18 @@
             & ~ .qb-item__group{
                 margin-top: 10px;
             }
-            // & > .qb-item:not(.qb-item__group){
-            //     margin-top: 10px;
-            // }
             
-            .qb-rule{
-                &--group{
+            & > .qb-rule{
                     margin-left: 85px;
-                    .qb-rule-handle{
-                        visibility: hidden;
-                        pointer-events: none;
-                    }
-                    & > .qb-rule-operator{
-                        position: absolute;
-                        left: -190px;
-                        top: 0;
-                    } 
+                .qb-rule-operator{
+                    position: absolute;
+                    left: -190px;
+                    top: 0;
                 }
-                
-                
+                .qb-rule-handle{
+                    visibility: hidden;
+                    pointer-events: none;
+                }
             }
         }
     }

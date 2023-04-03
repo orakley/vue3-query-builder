@@ -2,15 +2,20 @@
     <div class="qb-rule" :class="'qb-rule--' + rule.identificator + ' level-' + calculatedLevel">
         <div class="qb-rule-operator">
             <select v-if="showOperator"
-                    v-model="currentRule.levelOperator" @change="$emit('levelOperatorValue', {currentRule, index, calculatedLevel})" 
+                    v-model="currentRule.levelOperator" 
+                    @change="$emit('levelOperatorValue', {currentRule, index, calculatedLevel})" 
                     class="form-control">
-                <option v-for="operator in config.levelOperators"
+                    <option v-for="operator in config.levelOperators"
                         :selected="operator.identificator == 'AND' ? 'selected' : ''"
                         :value="operator.identificator" :key="operator.identificator">
-                    {{ operator.name }}    
-                </option>
+                        {{ operator.name }}    
+                    </option>
             </select>
-            <small v-if="index > 1">{{ currentQuery?.levelOperator?.name }}</small>
+
+            <!-- {{ levelOperators[calculatedLevel].name }} -->
+            <small v-if="!showOperator">    
+                {{ levelOperators[calculatedLevel].name }}
+            </small>
         </div>
         <div class="qb-rule-container">
             <div class="qb-rule-handle">        
@@ -35,8 +40,8 @@
             <div class="qb-rule-input">
                 <!-- Component: <{{rule.component}} /> <br> -->
                 <input  class="input-field" v-model="currentRule.value" :type="rule.type" 
-                        :placeholder="rule.placeholder"
-                        @input="$emit('updateRule', {currentRule}); ruleUpdate()">
+                :placeholder="rule.placeholder"
+                @input="$emit('updateRule', {currentRule}); ruleUpdate()">
             </div>        
             <div class="qb-rule-actions">
                 <button type="button" @click="$emit('deleteRule', {rule, index, calculatedLevel, parentuuid})"
@@ -64,23 +69,24 @@ const props = defineProps({
     config:{
         type: Object,
     },
-    currentQuery: {
-        type: Object
-    },
     parentIndex: {
         type: Number
     },
     parentuuid: {
         type: String
+    },
+    levelOperators: {
+        type: Array
     }
 
 })
 const showOperator = computed(() => {
-    const   _isFirstofGroup = props.index === 0 && props.rule.isGroup == true,
-            _isSecondofGroup = props.index === 0 && props.rule.level > 0,
-            _isFirst = props.index === 0 && props.rule.level == 0,
-            _isSecond = props.index === 1 && props.rule.level == 0;
-    if(_isFirstofGroup || _isFirst){
+    const   _isFirstofGroup = props.index == 0 && props.rule.isGroup == true,
+            _isSecondofGroup = props.index == 0 && props.rule.level > 0,
+            _isFirst = props.index == 0 && props.rule.level == 0,
+            _isSecond = props.index == 1 && props.rule.level == 0;
+            // || (props.index == 0 && !props.rule.level == 0)
+    if(_isFirstofGroup || _isFirst ){
         return false
     }
     if(_isSecondofGroup || _isSecond ){
@@ -109,12 +115,5 @@ const currentRule = reactive({
 
 function ruleUpdate(){
 }
-// onMounted(() => {
-//     inputValue = props.rule.value
-// })
-// const emit = defineEmits('deleteRule')
 
-// const deleteRule = (event) => {
-//     emit('onDeleteRule', props.rule)
-// }
 </script>

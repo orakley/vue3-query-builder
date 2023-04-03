@@ -13,19 +13,20 @@
             <div class="qb-item" :class="_isGroup(element)" :data-id="element.identificator">
                 <queryItem  :rule="element" :index="index" 
                             :calculatedLevel="calculatedLevel"
-                            :currentQuery="currentQuery"
                             :config="config" 
                             :parentuuid="parentuuid"
+                            :levelOperators="levelOperators"
                             @deleteRule="$emit('deleteRule', $event)"
                             @updateRule="$emit('updateRule', $event)"
                             @levelOperatorValue="$emit('levelOperatorValue', $event)">
                 </queryItem>
                 
                 <nestedQuery    v-if="element.isGroup" 
-                                :class="'nested group level-' + calculatedLevel + ' ' + element.identificator" 
+                                :class="'nested-group level-' + calculatedLevel + ' ' + element.identificator" 
                                 :config="config"
                                 :parentuuid="element.uuid"
                                 :calculatedLevel="newCalculatedLevel" 
+                                :levelOperators="levelOperators"
                                 @deleteRule="$emit('deleteRule', $event)"
                                 @updateRule="$emit('updateRule', $event)"
                                 @addRule="$emit('addRule', $event)"
@@ -60,11 +61,11 @@ const props = defineProps({
     config:{
         type: Object,
     },
-    currentQuery: {
-        type: Object
-    },
     parentuuid: {
         type: String
+    },
+    levelOperators: {
+        type: Array
     }
 })
 

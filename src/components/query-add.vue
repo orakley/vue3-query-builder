@@ -12,7 +12,6 @@
                     <i>+</i> add group
                 </option>
         </select>
-        {{ calculatedLevel }}
     </div>
 
 </template>
@@ -33,7 +32,7 @@ const props = defineProps({
     }
 })
 
-const selectedRule = ref('')
+const selectedRule = ref(null)
 
 // const currentQuery = reactive ({
 //     selectedRule: null,
