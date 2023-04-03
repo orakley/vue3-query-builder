@@ -80,23 +80,7 @@
         }
     })
     const currentQuery = reactive ({
-        levelOperators: [
-        {
-            name: "and",
-            identificator: "AND", 
-            level: 0
-        },
-        {
-            name: "and",
-            identificator: "AND", 
-            level: 1
-        },
-        {
-            name: "and",
-            identificator: "AND", 
-            level: 2
-        },
-        ],
+        levelOperators: [],
         operator: '',
         level: 0,
         rules: [],
@@ -151,6 +135,9 @@
         } else  {
             currentQuery.rules.push(_merged)
         }
+        if(event.calculatedLevel >= currentQuery.levelOperators.length){
+            addLevelOperator(event.calculatedLevel)
+        }
     }
 
     function deleteRule(event){
@@ -160,17 +147,31 @@
         } else {
             currentQuery.rules.splice(event.index, 1)
         }
+        if(event.rule.isGroup){
+            deleteLevelOperator(event.rule.level + 1)
+        }
+        console.log(event.rule.isGroup)
     }
 
     function createParams(){
         let _params = []
     }
 
-    function setLevelOperator(event){
+    function addLevelOperator(level){
+        console.log(level)
         let _level = {
-            level: event.calculatedLevel,
+            level: level,
         }
-        let _findOperator = {...props.config.levelOperators.find(operator => operator.identificator == event.currentRule.levelOperator), ..._level}
+        let _findOperator = {...props.config.levelOperators[0], ..._level}
+        // if()
+        currentQuery.levelOperators.push(_findOperator)
+    }
+    function deleteLevelOperator(level){
+       currentQuery.levelOperators.splice(currentQuery.levelOperators.findIndex(operator => operator.level === level), 1)
+    }
+
+    function setLevelOperator(event){
+        let _findOperator = props.config.levelOperators.find(operator => operator.identificator == event.currentRule.levelOperator)
 
         let _findCurrentOperator = currentQuery.levelOperators.find(operator => operator.level === event.calculatedLevel)
         _findCurrentOperator.identificator = _findOperator.identificator     //  = _findOperator
