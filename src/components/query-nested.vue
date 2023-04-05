@@ -3,7 +3,7 @@
         class="qb-draggable qb-rules-container"
         :list="items"
         :group="{ name: 'g1' }"
-        item-key="id"
+        item-key="uuid"
         v-bind="dragOptions"
         :component-data="{name:'fade'}"
         handle=".qb-rule-handle"

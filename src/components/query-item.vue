@@ -20,6 +20,7 @@
         <div class="qb-rule-container">
             <div class="qb-rule-handle">        
             </div>
+             
             <div class="qb-rule-name">
                 <div v-if="rule.icon" class="icon">
                     {{ rule.icon }}
@@ -30,7 +31,7 @@
             </div>
             <div v-if="config.ruleOperators" class="qb-rule-operators">
                 <select v-model="currentRule.operator" class="form-control" 
-                        @change="$emit('updateRule', {currentRule}); ruleUpdate()">
+                        @change="ruleUpdate()">
 
                     <option v-for="operator in config.ruleOperators" :value="operator.identificator" :key="operator.identificator">
                         {{ operator.name}}
@@ -38,17 +39,15 @@
                 </select>
             </div>
             <div class="qb-rule-input">
-                <!-- Component: <{{rule.component}} /> <br> -->
                 <input  class="input-field" v-model="currentRule.value" :type="rule.type" 
                 :placeholder="rule.placeholder"
-                @input="$emit('updateRule', {currentRule}); ruleUpdate()">
+                @input="ruleUpdate()">
             </div>        
             <div class="qb-rule-actions">
                 <button type="button" @click="$emit('deleteRule', {rule, index, calculatedLevel, parentuuid})"
                         class="btn btn-secondary btn-icon">
                         <img src="../assets/delete.svg">
                 </button>
-                <!-- Add to Group Filter -->
             </div>
         </div>
     </div>
@@ -80,6 +79,25 @@ const props = defineProps({
     }
 
 })
+const emit = defineEmits(['updateRule', 'deleteRule', 'levelOperatorValue' ])
+
+watch(()=> props, (current, prev) => {
+
+    ruleUpdate()
+    if(current.index){
+        currentRule.index = props.index
+    }
+}, { deep: true });
+
+const currentRule = reactive({
+    levelOperator: 'AND',
+    uuid: props.rule.uuid,
+    value: props.value,
+    operator: 'contain',
+    level: props.calculatedLevel,
+    index: props.index,
+})
+
 const showOperator = computed(() => {
     const   _isFirstofGroup = props.index == 0 && props.rule.isGroup == true,
             _isSecondofGroup = props.index == 0 && props.rule.level > 0,
@@ -93,27 +111,26 @@ const showOperator = computed(() => {
         return true
     }
 })
+
 onMounted(() =>{
     currentRule.value = props.rule.initialValue || ''
+
     if(props.parentuuid){
         currentRule.parentuuid = props.parentuuid
     }
     if(props.rule.isGroup){
         currentRule.index = props.index
     }
-    // emit('updateRule', {currentRule})
 })
 
-const currentRule = reactive({
-    levelOperator: 'AND',
-    uuid: props.rule.uuid,
-    value: '',
-    operator: 'contain',
-    level: props.calculatedLevel,
-    index: props.index,
-})
 
 function ruleUpdate(){
+    emit('updateRule', {currentRule, props}); 
 }
 
+function assignData(){
+    currentRule.value = props.value
+    currentRule.index = props.index
+    currentRule.operator = props.rule.operator    
+}
 </script>

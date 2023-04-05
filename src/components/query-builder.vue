@@ -161,7 +161,6 @@
             level: level,
         }
         let _findOperator = {...props.config.levelOperators[0], ..._level}
-        // if()
         currentQuery.levelOperators.push(_findOperator)
     }
     
@@ -170,7 +169,7 @@
     }
 
     function setLevelOperator(event){
-        console.log(event)
+        // console.log(event)
         let _findOperator = props.config.levelOperators.find(operator => operator.identificator == event.currentRule.levelOperator)
 
         let _findCurrentOperator = currentQuery.levelOperators.find(operator => operator.level === event.calculatedLevel)
@@ -179,14 +178,13 @@
     }
 
     function updateRule(event){
-
+        
         let _find = findRule(currentQuery.rules, event.currentRule.uuid)
 
-        console.log(event.currentRule, _find)
         _find.value = event.currentRule.value
         _find.operator = event.currentRule.operator
-        _find.index = event.currentRule.index
-        _find.level = event.currentRule.level
+        _find.index = event.props.index
+        _find.level = event.props.calculatedLevel
     }
 
     // q[operatorIdentifier]:AND
