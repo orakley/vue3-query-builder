@@ -11,8 +11,6 @@
                         {{ operator.name }}    
                     </option>
             </select>
-
-            <!-- {{ levelOperators[calculatedLevel].name }} -->
             <small v-if="!showOperator">    
                 {{ levelOperators[calculatedLevel].name }}
             </small>
@@ -39,9 +37,11 @@
                 </select>
             </div>
             <div class="qb-rule-input">
-                <input  class="input-field" v-model="currentRule.value" :type="rule.type" 
+                <input v-if="!rule.component" class="input-field" v-model="currentRule.value" :type="rule.type" 
                 :placeholder="rule.placeholder"
                 @input="ruleUpdate()">
+                <component v-else :is="{...rawComponent}" @emitInput="(event) => updateInput(event)">
+                </component>
             </div>        
             <div class="qb-rule-actions">
                 <button type="button" @click="$emit('deleteRule', {rule, index, calculatedLevel, parentuuid})"
@@ -53,7 +53,7 @@
     </div>
 </template>
 <script setup>
-import { computed, reactive, onMounted, onBeforeMount , ref, watch, watchEffect, toRef, toRefs } from 'vue';
+import { computed, reactive, onMounted, onBeforeMount , ref, watch, watchEffect, toRef, toRefs, markRaw } from 'vue';
 
 const props = defineProps({
     rule: {
@@ -79,10 +79,12 @@ const props = defineProps({
     }
 
 })
-const emit = defineEmits(['updateRule', 'deleteRule', 'levelOperatorValue' ])
+const emit = defineEmits(['updateRule', 'deleteRule', 'levelOperatorValue', 'emitInput'])
+
+const rawComponent = markRaw(props.rule.component)
+
 
 watch(()=> props, (current, prev) => {
-
     ruleUpdate()
     if(current.index){
         currentRule.index = props.index
@@ -103,13 +105,14 @@ const showOperator = computed(() => {
             _isSecondofGroup = props.index == 0 && props.rule.level > 0,
             _isFirst = props.index == 0 && props.rule.level == 0,
             _isSecond = props.index == 1 && props.rule.level == 0;
-            // || (props.index == 0 && !props.rule.level == 0)
-    if(_isFirstofGroup || _isFirst ){
+            
+    if(_isFirst){
         return false
     }
-    if(_isSecondofGroup || _isSecond ){
+    if(_isSecondofGroup || _isSecond || _isFirstofGroup ){
         return true
     }
+
 })
 
 onMounted(() =>{
@@ -121,6 +124,7 @@ onMounted(() =>{
     if(props.rule.isGroup){
         currentRule.index = props.index
     }
+    ruleUpdate()
 })
 
 
@@ -128,9 +132,15 @@ function ruleUpdate(){
     emit('updateRule', {currentRule, props}); 
 }
 
-function assignData(){
-    currentRule.value = props.value
-    currentRule.index = props.index
-    currentRule.operator = props.rule.operator    
+function updateInput(event){
+    console.log('input', event)
+    currentRule.value = event.value
+    ruleUpdate()
 }
+
+// Vue.createApp({
+//   components: {
+//     'my-component': Vue.defineAsyncComponent(() => loadModule('./myComponent.vue', opts))
+//   },
+//   ...
 </script>

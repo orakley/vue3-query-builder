@@ -11,21 +11,22 @@
   background-color: var(--background-rgba);
   border-radius: 0.2rem;
   border: 1px solid var(--border-color);
-  margin-left: 100px;
+  margin-left: 107px;
   padding-left: 5px;
   padding-bottom: 5px;
   margin-top: 5px;
+  padding-right: 10px;
   margin-bottom: 5px;
 }
 .qb-item__group ~ .qb-item__group {
   margin-top: 10px;
 }
 .qb-item__group > .qb-rule {
-  margin-left: 85px;
+  margin-left: 84px;
 }
 .qb-item__group > .qb-rule .qb-rule-operator {
   position: absolute;
-  left: -190px;
+  left: -185px;
   top: 0;
 }
 .qb-item__group > .qb-rule .qb-rule-handle {
