@@ -86,7 +86,7 @@ import queryBuilder from './components/query-builder.vue'
             {
                 name: 'Farbe',
                 identificator: 'color',
-                type: String,
+                type: 'color',
                 icon: '⁂',
                 // component: colorInput,
                 initialValue: "#333",

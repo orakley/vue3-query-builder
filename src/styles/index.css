@@ -116,6 +116,11 @@ select, input,
   font-size: var(--font-size);
   font-weight: 100;
 }
+select[type=color], input[type=color],
+.input-field[type=color], button[type=color], .btn[type=color] {
+  padding: 0;
+  min-height: 34px;
+}
 
 select {
   cursor: pointer;

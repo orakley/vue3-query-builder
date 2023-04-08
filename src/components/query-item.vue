@@ -40,7 +40,7 @@
                 <input v-if="!rule.component" class="input-field" v-model="currentRule.value" :type="rule.type" 
                 :placeholder="rule.placeholder"
                 @input="ruleUpdate()">
-                <component v-else :is="{...rawComponent}" @emitInput="(event) => updateInput(event)">
+                <component v-else :is="{...rule.component}" @emitInput="(event) => updateInput(event)">
                 </component>
             </div>        
             <div class="qb-rule-actions">
@@ -81,7 +81,7 @@ const props = defineProps({
 })
 const emit = defineEmits(['updateRule', 'deleteRule', 'levelOperatorValue', 'emitInput'])
 
-const rawComponent = markRaw(props.rule.component)
+// const rawComponent = markRaw(props.rule.component)
 
 
 watch(()=> props, (current, prev) => {

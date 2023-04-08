@@ -6,6 +6,10 @@ select, input,
     color: var(--text-color);
     font-size: var(--font-size);
     font-weight: 100;
+    &[type=color]{
+        padding: 0;
+        min-height: 34px;
+    }
 
 }
 
