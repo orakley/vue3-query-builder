@@ -36,7 +36,7 @@
                     </option>
                 </select>
             </div>
-            <div class="qb-rule-input">
+            <div v-if="hasInput" class="qb-rule-input">
                 <input v-if="!rule.component" class="input-field" v-model="currentRule.value" :type="rule.type" 
                 :placeholder="rule.placeholder"
                 @input="ruleUpdate()">
@@ -81,7 +81,17 @@ const props = defineProps({
 })
 const emit = defineEmits(['updateRule', 'deleteRule', 'levelOperatorValue', 'emitInput'])
 
-// const rawComponent = markRaw(props.rule.component)
+const hasInput = computed(() => {
+
+    let _findOperator = props.config.ruleOperators.find(operator => operator.identificator == currentRule.operator)
+    console.log(_findOperator)
+    if(_findOperator?.hasInput == false){
+        return !!_findOperator.hasInput
+    } else {
+        return true
+    }
+    // ?? _findOperator.hasInput 
+})
 
 
 watch(()=> props, (current, prev) => {

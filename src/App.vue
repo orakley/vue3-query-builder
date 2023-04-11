@@ -56,11 +56,13 @@ import queryBuilder from './components/query-builder.vue'
             },
             {
                 name: 'hat keine Daten',
-                identificator: 'isEmpty'
+                identificator: 'isEmpty',
+                hasInput: false,
             },
             {
                 name: 'hat Daten',
-                identificator: 'isNotEmpty'
+                identificator: 'isNotEmpty',
+                hasInput: false,
             },
         ],
 
