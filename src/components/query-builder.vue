@@ -107,9 +107,11 @@
         if(_id === 'group'){
             let _groupElements = {
                 uuid: getUUID(),
-                identificator: 'group',
+                type: {
+                    identificator: 'group',
+                    icon: '+',
+                },
                 isGroup: true,
-                icon: '+',
                 level: _event.calculatedLevel || 0,
                 children: []
             }
@@ -120,19 +122,18 @@
     }
         
     function addRule(event){
-        let _addOn = {
+        let _add = {
             index: !event.calculatedLevel ? currentQuery.rules.length : 0,
             value: '',
             operator: 'contain',
             level: !event.calculatedLevel ? 0 : event.calculatedLevel,
             uuid: getUUID(),
+            type: selectRule(event.selectedRule, event)
         }
-        let _merged = {..._addOn, ...selectRule(event.selectedRule, event)} 
-        
         if(event.parentuuid){        
-            findRule(currentQuery.rules, event.parentuuid).children.push(_merged)
+            findRule(currentQuery.rules, event.parentuuid).children.push(_add)
         } else  {
-            currentQuery.rules.push(_merged)
+            currentQuery.rules.push(_add)
         }
         if(event.calculatedLevel >= currentQuery.levelOperators.length){
             addLevelOperator(event.calculatedLevel)
@@ -179,11 +180,29 @@
     function updateRule(event){
         
         let _find = findRule(currentQuery.rules, event.currentRule.uuid)
+        console.log(_find, event)
+        // _find = {
+        //     value: event.currentRule.value,
+        //     operator: event.currentRule.operator,
+        //     index: event.props.index,
+        //     level: event.props.calculatedLevel,
+        //     identificator: event.currentRule.identificator,
+        //     type: event.currentRule.type,
+        //     name: event.currentRule.name,
+        //     icon: event.currentRule
+        // }
+        if(event._type === 'resetValue'){
+            _find.value = null
+        } else {
+            _find.value = event.currentRule.value
+        }
 
-        _find.value = event.currentRule.value
         _find.operator = event.currentRule.operator
         _find.index = event.props.index
         _find.level = event.props.calculatedLevel
+        // _find.identificator = event.currentRule.identificator
+        _find.type = event.currentRule.type
+        _find.placeholder = event.currentRule.placeholder
     }
 
     // q[operatorIdentifier]:AND

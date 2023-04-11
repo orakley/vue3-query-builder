@@ -73,6 +73,9 @@
   gap: 0.5rem;
   font-size: var(--font-size);
 }
+.qb-rule-name .qb-icon {
+  margin-right: 1rem;
+}
 .qb-rule-actions {
   margin-left: auto;
 }

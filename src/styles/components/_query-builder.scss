@@ -71,6 +71,9 @@
             background-color: var(--background);
             gap: 0.5rem;
             font-size: var(--font-size);
+            .qb-icon{
+                margin-right: 1rem;
+            }
         }
         &-actions{
             margin-left: auto;

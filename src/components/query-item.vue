@@ -18,15 +18,21 @@
         <div class="qb-rule-container">
             <div class="qb-rule-handle">        
             </div>
-             
-            <div class="qb-rule-name">
-                <div v-if="rule.icon" class="icon">
-                    {{ rule.icon }}
-                </div>
-                <div class="qb-name">
-                    {{ rule.name }}
-                </div>
-            </div>
+            
+            <select v-model="currentRule.type"
+                    class="qb-rule-name"
+                    @change="ruleUpdate('resetValue')">
+                    <option v-for="rule in config.rules"
+                            :key="rule.identificator"
+                            :value="rule">
+                        <div v-if="rule.icon" class="qb-icon">
+                            {{ rule.icon }}&nbsp;
+                        </div>
+                        <div class="qb-name">
+                            {{ rule.name}}
+                        </div>
+                    </option>
+            </select>
             <div v-if="config.ruleOperators" class="qb-rule-operators">
                 <select v-model="currentRule.operator" class="form-control" 
                         @change="ruleUpdate()">
@@ -37,10 +43,10 @@
                 </select>
             </div>
             <div v-if="hasInput" class="qb-rule-input">
-                <input v-if="!rule.component" class="input-field" v-model="currentRule.value" :type="rule.type" 
-                :placeholder="rule.placeholder"
+                <input v-if="!currentRule.type.component" class="input-field" v-model="currentRule.value" :type="currentRule.type.type" 
+                :placeholder="currentRule.type.placeholder"
                 @input="ruleUpdate()">
-                <component v-else :is="{...rule.component}" @emitInput="(event) => updateInput(event)">
+                <component v-else :is="{...currentRule.type.component}" @emitInput="(event) => updateInput(event)">
                 </component>
             </div>        
             <div class="qb-rule-actions">
@@ -84,7 +90,7 @@ const emit = defineEmits(['updateRule', 'deleteRule', 'levelOperatorValue', 'emi
 const hasInput = computed(() => {
 
     let _findOperator = props.config.ruleOperators.find(operator => operator.identificator == currentRule.operator)
-    console.log(_findOperator)
+    // console.log(_findOperator)
     if(_findOperator?.hasInput == false){
         return !!_findOperator.hasInput
     } else {
@@ -95,10 +101,11 @@ const hasInput = computed(() => {
 
 
 watch(()=> props, (current, prev) => {
-    ruleUpdate()
+    // ruleUpdate()
     if(current.index){
         currentRule.index = props.index
     }
+    currentRule.value = props.rule.value
 }, { deep: true });
 
 const currentRule = reactive({
@@ -108,6 +115,7 @@ const currentRule = reactive({
     operator: 'contain',
     level: props.calculatedLevel,
     index: props.index,
+    type: props.rule.type
 })
 
 const showOperator = computed(() => {
@@ -138,12 +146,12 @@ onMounted(() =>{
 })
 
 
-function ruleUpdate(){
-    emit('updateRule', {currentRule, props}); 
+function ruleUpdate(_type){
+    emit('updateRule', {currentRule, props, _type}); 
 }
 
 function updateInput(event){
-    console.log('input', event)
+    // console.log('input', event)
     currentRule.value = event.value
     ruleUpdate()
 }
