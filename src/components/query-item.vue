@@ -88,20 +88,17 @@ const props = defineProps({
 const emit = defineEmits(['updateRule', 'deleteRule', 'levelOperatorValue', 'emitInput'])
 
 const hasInput = computed(() => {
-
     let _findOperator = props.config.ruleOperators.find(operator => operator.identificator == currentRule.operator)
-    // console.log(_findOperator)
     if(_findOperator?.hasInput == false){
         return !!_findOperator.hasInput
     } else {
         return true
     }
-    // ?? _findOperator.hasInput 
 })
 
 
 watch(()=> props, (current, prev) => {
-    // ruleUpdate()
+    ruleUpdate()
     if(current.index){
         currentRule.index = props.index
     }
@@ -151,14 +148,7 @@ function ruleUpdate(_type){
 }
 
 function updateInput(event){
-    // console.log('input', event)
     currentRule.value = event.value
     ruleUpdate()
 }
-
-// Vue.createApp({
-//   components: {
-//     'my-component': Vue.defineAsyncComponent(() => loadModule('./myComponent.vue', opts))
-//   },
-//   ...
 </script>

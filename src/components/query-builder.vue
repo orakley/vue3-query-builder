@@ -33,41 +33,12 @@
             {{ currentQuery }}
         </pre>
 
-        <!---<query-builder :config="config" v-model="query">
-             <template #groupOperator="props">
-                <div class="query-builder-group-slot__group-selection form-select">
-                    <select class="form-select btn btn-white w-auto text-left"
-                        :value="props.currentOperator"
-                        @input="props.updateCurrentOperator($event.target.value)">
-                        <option disabled value>Operator auswählen...</option>
-                        <option
-                        v-for="operator in props.operators"
-                        :key="operator.identifier"
-                        :value="operator.identifier"
-                        v-text="operator.name"
-                        />
-                    </select>
-                </div>
-            </template>
-
-            <template #groupControl="props">
-                <group-ctrl-slot :group-ctrl="props"/>
-            </template>
-
-            <template #rule="props">
-                <rule-slot :rules="config.rules" :ruleCtrl="props" :query="query" :operator="query"/>
-            </template>
-
-        </query-builder> -->
-
-
     </div>
 </template>
 <script setup>
-    // import queryItem from "./query-item.vue"
     import nestedQuery from "./query-nested.vue"
     import queryAdd from "./query-add.vue"
-    import { computed, reactive, onMounted, onBeforeMount , ref, watch, watchEffect, toRef, toRefs } from 'vue';
+    import { reactive } from 'vue';
 
     const props = defineProps({
         config: {
@@ -169,28 +140,15 @@
     }
 
     function setLevelOperator(event){
-        // console.log(event)
         let _findOperator = props.config.levelOperators.find(operator => operator.identificator == event.currentRule.levelOperator)
 
         let _findCurrentOperator = currentQuery.levelOperators.find(operator => operator.level === event.calculatedLevel)
-        _findCurrentOperator.identificator = _findOperator.identificator     //  = _findOperator
-        _findCurrentOperator.name = _findOperator.name     //  = _findOperator
+        _findCurrentOperator.identificator = _findOperator.identificator
+        _findCurrentOperator.name = _findOperator.name
     }
 
     function updateRule(event){
-        
         let _find = findRule(currentQuery.rules, event.currentRule.uuid)
-        console.log(_find, event)
-        // _find = {
-        //     value: event.currentRule.value,
-        //     operator: event.currentRule.operator,
-        //     index: event.props.index,
-        //     level: event.props.calculatedLevel,
-        //     identificator: event.currentRule.identificator,
-        //     type: event.currentRule.type,
-        //     name: event.currentRule.name,
-        //     icon: event.currentRule
-        // }
         if(event._type === 'resetValue'){
             _find.value = null
         } else {
@@ -200,9 +158,7 @@
         _find.operator = event.currentRule.operator
         _find.index = event.props.index
         _find.level = event.props.calculatedLevel
-        // _find.identificator = event.currentRule.identificator
         _find.type = event.currentRule.type
-        _find.placeholder = event.currentRule.placeholder
     }
 
     // q[operatorIdentifier]:AND
