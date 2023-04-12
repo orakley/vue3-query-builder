@@ -10,7 +10,7 @@
         :move="onMove"
     >
         <template #item="{ element, index}">
-            <div class="qb-item" :class="_isGroup(element)" :data-id="element.identificator">
+            <div class="qb-item" :class="_isGroup(element)" :data-id="element?.type?.identificator">
                 <queryItem  :rule="element" :index="index" 
                             :calculatedLevel="calculatedLevel"
                             :config="config" 
@@ -22,7 +22,7 @@
                 </queryItem>
                 
                 <nestedQuery    v-if="element.isGroup" 
-                                :class="'nested-group level-' + calculatedLevel + ' ' + element.identificator" 
+                                :class="'nested-group level-' + calculatedLevel + ' ' + element.type.identificator" 
                                 :config="config"
                                 :parentuuid="element.uuid"
                                 :calculatedLevel="newCalculatedLevel" 
@@ -71,7 +71,7 @@ const props = defineProps({
 
 
 
-const _isGroup = (element) => {if(element.isGroup){return 'qb-item__group ' + element.identificator}}
+const _isGroup = (element) => {if(element.isGroup){return 'qb-item__group ' + element.type.identificator}}
 
 const newCalculatedLevel = computed(() => props.calculatedLevel+1)
 

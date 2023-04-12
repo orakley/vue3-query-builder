@@ -1,5 +1,5 @@
 <template>
-    <div class="qb-rule" :class="'qb-rule--' + rule.identificator + ' level-' + calculatedLevel">
+    <div class="qb-rule" :class="'qb-rule--' + rule.type.identificator + ' level-' + calculatedLevel">
         <div class="qb-rule-operator">
             <select v-if="showOperator"
                     v-model="currentRule.levelOperator" 

@@ -76,17 +76,7 @@
 
     function selectRule(_id, _event){
         if(_id === 'group'){
-            let _groupElements = {
-                uuid: getUUID(),
-                type: {
-                    identificator: 'group',
-                    icon: '+',
-                },
-                isGroup: true,
-                level: _event.calculatedLevel || 0,
-                children: []
-            }
-            return {..._groupElements, ...props.config.rules[0]}
+            return props.config.rules[0]
         } else {
             return props.config.rules.find(rule => rule.identificator === _id)
         }
@@ -101,6 +91,16 @@
             uuid: getUUID(),
             type: selectRule(event.selectedRule, event)
         }
+
+        if(event.selectedRule === 'group'){
+            let _groupElements = {
+                isGroup: true,
+                children: [],
+            }
+            _add = ({..._add, ..._groupElements})
+        } 
+
+
         if(event.parentuuid){        
             findRule(currentQuery.rules, event.parentuuid).children.push(_add)
         } else  {
