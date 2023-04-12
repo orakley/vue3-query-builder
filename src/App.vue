@@ -11,6 +11,8 @@
 
 <script setup>
 import colorInput from "./components/rules/color.vue"
+
+import selectInput from "./components/rules/select.vue"
 import textInput from "./components/rules/text.vue"
 import numberInput from "./components/rules/number.vue"
 import { computed, reactive, onMounted, onBeforeMount , ref, watch, watchEffect, toRef, toRefs } from 'vue';
@@ -20,61 +22,63 @@ import queryBuilder from './components/query-builder.vue'
         levelOperators: [
             {
                 name: 'and',
-                id: 'AND'
+                identificator: 'AND'
             },
             {
                 name: 'or',
-                id: 'OR'
+                identificator: 'OR'
             },
         ],
         ruleOperators: [
             {
                 name: 'enthällt',
-                id: 'contain'
+                identificator: 'contain'
             },
             {
                 name: 'enthällt nicht',
-                id: 'notContain'
+                identificator: 'notContain'
             },
             {
                 name: 'ist',
-                id: 'is'
+                identificator: 'is'
             },
             {
                 name: 'ist nicht',
-                id: 'isNot'
+                identificator: 'isNot'
             },
             {
                 name: 'startet mit',
-                id: 'startsWith'
+                identificator: 'startsWith'
             },
             {
                 name: 'endet mit',
-                id: 'endsWith'
+                identificator: 'endsWith'
             },
             {
                 name: 'hat keine Daten',
-                id: 'isEmpty'
+                identificator: 'isEmpty',
+                hasInput: false,
             },
             {
                 name: 'hat Daten',
-                id: 'isNotEmpty'
+                identificator: 'isNotEmpty',
+                hasInput: false,
             },
         ],
 
         rules: [
             {
                 name: 'Name',
-                id: 'name',
-                type: String,
+                identificator: 'name',
+                type: "text",
                 icon: '#',
-                // component: textInput,
+                component: textInput,
                 initialValue: "",
-                placeholder: "TEXTINPUT",
+                placeholder: "TEXT - Placeholder",
             },
             {
                 name: 'Hausnummer',
-                id: 'housenumber',
+                identificator: 'housenumber',
                 type: 'Number',
                 icon: '©',
                 // component: numberInput,
@@ -83,17 +87,17 @@ import queryBuilder from './components/query-builder.vue'
             },
             {
                 name: 'Farbe',
-                id: 'color',
-                type: String,
+                identificator: 'color',
+                type: 'color',
                 icon: '⁂',
                 // component: colorInput,
                 initialValue: "#333",
                 placeholder: 'Farbe'
             },
             {
-                name: "Text Selection",
-                id: "txt",
-                // component: textInput,
+                name: "Selection",
+                identificator: "txt",
+                component: selectInput,
                 initialValue: "",
                 placeholder: "Placeholder"
             },
@@ -105,7 +109,6 @@ import queryBuilder from './components/query-builder.vue'
             //             initialValue: () => new Date().toLocaleDateString('en-CA'),
             //         },
     }
-    // develop
 
 </script>
 

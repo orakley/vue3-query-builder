@@ -7,30 +7,31 @@
   font-family: sans-serif;
 }
 
-.qb-item__advanced {
+.qb-item__group {
   background-color: var(--background-rgba);
   border-radius: 0.2rem;
   border: 1px solid var(--border-color);
-  margin-left: 100px;
+  margin-left: 107px;
   padding-left: 5px;
   padding-bottom: 5px;
   margin-top: 5px;
+  padding-right: 10px;
   margin-bottom: 5px;
 }
-.qb-item__advanced ~ .qb-item__advanced {
+.qb-item__group ~ .qb-item__group {
   margin-top: 10px;
 }
-.qb-item__advanced .qb-rule--advanced {
-  margin-left: 85px;
+.qb-item__group > .qb-rule {
+  margin-left: 84px;
 }
-.qb-item__advanced .qb-rule--advanced .qb-rule-handle {
+.qb-item__group > .qb-rule .qb-rule-operator {
+  position: absolute;
+  left: -185px;
+  top: 0;
+}
+.qb-item__group > .qb-rule .qb-rule-handle {
   visibility: hidden;
   pointer-events: none;
-}
-.qb-item__advanced .qb-rule--advanced > .qb-rule-operator {
-  position: absolute;
-  left: -190px;
-  top: 0;
 }
 .qb-rule {
   display: flex;
@@ -71,6 +72,9 @@
   background-color: var(--background);
   gap: 0.5rem;
   font-size: var(--font-size);
+}
+.qb-rule-name .qb-icon {
+  margin-right: 1rem;
 }
 .qb-rule-actions {
   margin-left: auto;
@@ -114,6 +118,11 @@ select, input,
   color: var(--text-color);
   font-size: var(--font-size);
   font-weight: 100;
+}
+select[type=color], input[type=color],
+.input-field[type=color], button[type=color], .btn[type=color] {
+  padding: 0;
+  min-height: 34px;
 }
 
 select {
